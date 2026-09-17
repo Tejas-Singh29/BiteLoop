@@ -14,9 +14,9 @@ async function authFoodPartnerMiddleware(req, res, next) {
     }
 
     try {
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
+        const decoded = jwt.verify(token, process.env.JWT_SECRET) //.verify() return payload(_id was given as payload)
 
-        const foodPartner = await foodPartnerModel.findById(decoded.id);
+        const foodPartner = await foodPartnerModel.findById(decoded.id); //returns whole document
 
         req.foodPartner = foodPartner
 

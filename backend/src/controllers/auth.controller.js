@@ -156,8 +156,8 @@ async function loginFoodPartner(req, res) {
     }
 
     const token = jwt.sign({
-        id: foodPartner._id,
-    }, process.env.JWT_SECRET)
+        id: foodPartner._id, //payload
+    }, process.env.JWT_SECRET) //private key
 
     res.cookie("token", token)
 

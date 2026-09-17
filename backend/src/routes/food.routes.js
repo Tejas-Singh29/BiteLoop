@@ -6,14 +6,14 @@ const multer = require('multer');
 
 
 const upload = multer({
-    storage: multer.memoryStorage(),
+    storage: multer.memoryStorage(), //.memoryStorage() converts file to buffer(raw binary data) and hold it in temporary RAM memory
 })
 
 
 /* POST /api/food/ [protected]*/
 router.post('/',
     authMiddleware.authFoodPartnerMiddleware,
-    upload.single("mama"),
+    upload.single("mama"), //.single("mama") tells server to expect exactly one uploaded file under form field name "mama"
     foodController.createFood)
 
 

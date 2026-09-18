@@ -10,10 +10,12 @@ import Saved from '../pages/general/Saved';
 import BottomNav from '../components/BottomNav';
 import CreateFood from '../pages/food-partner/CreateFood';
 import Profile from '../pages/food-partner/Profile';
+import TopNav from '../components/TopNav';
 
 const AppRoutes = () => {
     return (
         <Router>
+            <TopNav />
             <Routes>
                 <Route path="/register" element={<ChooseRegister />} />
                 <Route path="/user/register" element={<UserRegister />} />

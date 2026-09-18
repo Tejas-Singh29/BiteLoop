@@ -2,7 +2,8 @@
 
 /* Page container ensures full viewport and background */
 .reels-page {
-  height: 100dvh;
+  position: relative;
+  height: calc(100dvh - 44px - 48px);
   background: var(--color-bg);
   overflow: hidden; /* parent hides overscroll glow on iOS */
 }
@@ -16,12 +17,18 @@
   overscroll-behavior-y: contain;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.reels-feed::-webkit-scrollbar {
+  display: none;
 }
 
 /* Each reel takes full viewport */
 .reel {
   position: relative;
-  height: 100dvh;
+  height: 100%;
   width: 100%;
   scroll-snap-align: start;
   background: #000; /* fallback while video loads */
@@ -29,10 +36,12 @@
 
 .reel-video {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* cover entire screen */
+  top: 50%;
+  left: 50%;
+  width: min(100%, calc((100dvh - 44px - 48px) * 9 / 16));
+  height: min(100%, calc(100vw * 16 / 9));
+  transform: translate(-50%, -50%);
+  object-fit: cover; /* fill the centered portrait frame */
   object-position: center;
   background: #000;
 }
@@ -40,7 +49,11 @@
 /* Overlay: content sits on top of video */
 .reel-overlay {
   position: absolute;
-  inset: 0;
+  top: 50%;
+  left: 50%;
+  width: min(100%, calc((100dvh - 44px - 48px) * 9 / 16));
+  height: min(100%, calc(100vw * 16 / 9));
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: flex-end; /* content near bottom */
   pointer-events: none; /* allow click-through except controls */

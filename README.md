@@ -9,14 +9,13 @@ Videos are stored and streamed via **ImageKit**, authentication is handled with 
 
 ## Features
 
-- 🎥 **Vertical video feed** with scroll-based autoplay (dish plays when ≥60% visible in the viewport, pauses otherwise, via `IntersectionObserver`)
-- ❤️ **Like** and 🔖 **Save** any food video, with live count updates
-- 👤 **Dual authentication system** — separate registration/login flows for regular Users and Food Partners
-- 🏪 **Food partner public profiles** listing all dishes posted by that partner
-- 📤 **Video upload pipeline** for food partners, streamed in-memory (via Multer) and pushed to ImageKit CDN storage
-- 📌 **Saved feed** — a personal collection of every dish a user has bookmarked
-- 🔐 **Cookie-based JWT sessions** with route-level middleware protection
-- 📱 Mobile-first UI with a bottom navigation bar and top navigation bar
+- **Vertical video feed** with scroll-based autoplay (dish plays when ≥60% visible in the viewport, pauses otherwise, via `IntersectionObserver`)
+- **Like** and **Save** any food video, with live count updates
+- **Dual authentication system** — separate registration/login flows for regular Users and Food Partners
+- **Food partner public profiles** listing all dishes posted by that partner
+- **Video upload pipeline** for food partners, streamed in-memory (via Multer) and pushed to ImageKit CDN storage
+- **Saved feed** — a personal collection of every dish a user has bookmarked
+- **Cookie-based JWT sessions** with route-level middleware protection
 
 ## Tech Stack
 

@@ -9,11 +9,11 @@ const Home = () => {
     const navigate = useNavigate()
     // Autoplay behavior is handled inside ReelFeed
 
-    useEffect(() => {
+    useEffect(() => { //When Home loads → ask backend for food videos.
         axios.get("http://localhost:3000/api/food", { withCredentials: true })
             .then(response => {
 
-                console.log(response.data);
+                console.log(response.data); //backend returns "message" and "foodItems:[{"_id:","name:","video:","descripion:","foodPartner:","likeCount:","Savecount:"}]"
 
                 setVideos(response.data.foodItems)
             })
@@ -51,13 +51,8 @@ const Home = () => {
     }
 
     return (
-        <ReelFeed
-            items={videos}
-            onLike={likeVideo}
-            onSave={saveVideo}
-            emptyMessage="No videos available."
-        />
-    )
+        <ReelFeed items={videos} onLike={likeVideo} onSave={saveVideo} emptyMessage="No videos available." />
+    )              
 }
 
 export default Home

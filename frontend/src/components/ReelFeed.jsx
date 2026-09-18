@@ -11,27 +11,34 @@ const ReelFeed = ({ items = [], onLike, onSave, emptyMessage = 'No videos yet.' 
   const videoRefs = useRef(new Map())
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+    const observer = new IntersectionObserver( //IntersectionObserver watches an element and tells us how much of that element is visible in the viewport.
+                                               //If the user scrolls: Video 1████ 20% visible, Video 2████████████████ 90% visible
+                                               //the observer detects the change.
+      (entries) => {    //entries contains the elements whose visibility has changed.                 
+        entries.forEach((entry) => { //The code checks each one.
           const video = entry.target
-          if (!(video instanceof HTMLVideoElement)) return
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
-            video.play().catch(() => { /* ignore autoplay errors */ })
+          if (!(video instanceof HTMLVideoElement)) return //This checks: Is this actually a video element (<video>)?
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.6) { //The video must be visible in the viewport. && At least 60% of the video must be visible.
+            video.play().catch(() => { /* ignore autoplay errors */ }) //Eg. 80% visible -> PLAY
           } else {
-            video.pause()
+            video.pause() //Eg. 30% visible -> pause
           }
         })
       },
-      { threshold: [0, 0.25, 0.6, 0.9, 1] }
+      { threshold: [0, 0.25, 0.6, 0.9, 1] } /*tells the browser to notify the observer when visibility crosses: 0%, 25%, 60%, 90%, 100%*/
     )
 
     videoRefs.current.forEach((vid) => observer.observe(vid))
     return () => observer.disconnect()
   }, [items])
 
+
+
   const setVideoRef = (id) => (el) => {
-    if (!el) { videoRefs.current.delete(id); return }
+    if (!el){ 
+      videoRefs.current.delete(id); 
+      return 
+    }
     videoRefs.current.set(id, el)
   }
 
@@ -45,11 +52,11 @@ const ReelFeed = ({ items = [], onLike, onSave, emptyMessage = 'No videos yet.' 
         )}
 
         {items.map((item) => (
-          <section key={item._id} className="reel" role="listitem">
+          <section key={item._id} className="reel" role="listitem"> {/**._id that came from backend in home.jsx */}
             <video
               ref={setVideoRef(item._id)}
               className="reel-video"
-              src={item.video}
+              src={item.video} //imagekit link that came from backend in home.jsx
               muted
               playsInline
               loop
@@ -61,7 +68,7 @@ const ReelFeed = ({ items = [], onLike, onSave, emptyMessage = 'No videos yet.' 
               <div className="reel-actions">
                 <div className="reel-action-group">
                   <button
-                    onClick={onLike ? () => onLike(item) : undefined}
+                    onClick={onLike ? () => onLike(item) : undefined} //onclicking req goes to home.jsx likeVideo function as it was passed as prop
                     className="reel-action"
                     aria-label="Like"
                   >
@@ -75,7 +82,7 @@ const ReelFeed = ({ items = [], onLike, onSave, emptyMessage = 'No videos yet.' 
                 <div className="reel-action-group">
                   <button
                     className="reel-action"
-                    onClick={onSave ? () => onSave(item) : undefined}
+                    onClick={onSave ? () => onSave(item) : undefined} ////onsaving req goes to home.jsx saveVideo function as it was passed as prop
                     aria-label="Bookmark"
                   >
                     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
